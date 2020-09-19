@@ -3,21 +3,10 @@
 import requests
 from sqlalchemy import create_engine
 import datetime as dt
+import config
 
-url = '' # insert link to sensors output in *.json format
-
-db_config = {'user': '', # insert database credentials, ip address of the server and port number
-'pwd': '',
-'host': '',
-'port': ,
-'db': ''}
-
-connection_string = 'mysql://{}:{}@{}:{}/{}'.format(db_config['user'],
-db_config['pwd'],
-db_config['host'],
-db_config['port'],
-db_config['db'])
-
+url = config.json_output # insert link to sensor's output in *.json format
+connection_string = 'mysql://' + config.user +':' + config.password + '@' + config.host + ':' + config.port + '/' + config.db
 reading = requests.get(url).json()
 pm10 = float(reading['sensordatavalues'][0]['value'])
 pm25 = float(reading['sensordatavalues'][1]['value'])
